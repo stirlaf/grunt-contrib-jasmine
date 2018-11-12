@@ -91,7 +91,8 @@ module.exports = function(grunt) {
       junit: {},
       ignoreEmpty: grunt.option('force') === true,
       display: 'full',
-      summary: false
+      summary: false,
+      '--web-security': true
     });
 
     // Setup a fresh event dispatcher to catch page events
@@ -148,6 +149,12 @@ module.exports = function(grunt) {
     if(options.hasOwnProperty('noSandbox') && options.noSandbox){
         puppeteerLaunchSetting = {args: ['--no-sandbox']};
         delete options.noSandbox;
+    } else {
+        puppeteerLaunchSetting = {args: []};
+    }
+
+    if (options['--web-security'] === false) {
+        puppeteerLaunchSetting.args.push('--disable-web-security');
     }
 
     if (options.hasOwnProperty('allowFileAccess') && options.allowFileAccess) {
