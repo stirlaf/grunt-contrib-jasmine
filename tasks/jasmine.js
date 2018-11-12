@@ -90,7 +90,8 @@ module.exports = function(grunt) {
       junit: {},
       ignoreEmpty: grunt.option('force') === true,
       display: 'full',
-      summary: false
+      summary: false,
+      '--web-security': true
     });
 
     if (grunt.option('debug')) {
@@ -144,6 +145,12 @@ module.exports = function(grunt) {
     if(options.hasOwnProperty('noSandbox') && options.noSandbox){
         puppeteerLaunchSetting = {args: ['--no-sandbox']};
         delete options.noSandbox;
+    } else {
+        puppeteerLaunchSetting = {args: []};
+    }
+
+    if (options['--web-security'] === false) {
+        puppeteerLaunchSetting.args.push('--disable-web-security');
     }
 
     const browser = await puppeteer.launch(puppeteerLaunchSetting);
