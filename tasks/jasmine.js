@@ -91,7 +91,7 @@ module.exports = function(grunt) {
       ignoreEmpty: grunt.option('force') === true,
       display: 'full',
       summary: false,
-      '--web-security': true
+      '--web-security': false
     });
 
     if (grunt.option('debug')) {
